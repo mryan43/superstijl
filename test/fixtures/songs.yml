@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  file_name: MyString
+  file_path: MyString
+  artist: MyString
+  title: MyString
+  duration: 1
+  style_id: 1
+
+two:
+  file_name: MyString
+  file_path: MyString
+  artist: MyString
+  title: MyString
+  duration: 1
+  style_id: 1

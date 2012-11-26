@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  party_id: 1
+  style_id: 1
+
+two:
+  party_id: 1
+  style_id: 1
