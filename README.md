@@ -1,7 +1,7 @@
 superstijl
 ==========
 
-The Superstikl is a party Concept from the Netherlands.
+The Superstijl is a party Concept from the Netherlands.
 
 The music during the party changes it's style every 15 minutes.
 
@@ -16,7 +16,7 @@ Installation
 Configure the root path of your music in the config/config.yml file
 
 Organize the music like this :
-<party name>/<style name>/<song>.mp3
+party name/style name/song.mp3
 
 Start the webapp like any rails webapp
 The application will scan the music folder when starting up
