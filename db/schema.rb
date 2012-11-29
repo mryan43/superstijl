@@ -38,9 +38,11 @@ ActiveRecord::Schema.define(:version => 20121126214432) do
 
   create_table "votes", :force => true do |t|
     t.integer  "style_id"
-    t.string   "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "user_ip"
+    t.string   "user_cookie"
+    t.string   "user_agent"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end

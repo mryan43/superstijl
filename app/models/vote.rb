@@ -1,24 +1,24 @@
 class Vote < ActiveRecord::Base
-  attr_accessible :style_id, :user_id
+  attr_accessible :style_id, :user_cookie, :user_ip, :user_agent
   belongs_to :style
   
-  validate :voting_open
-  validate :only_one_vote
+  validate :for_current_session?
   
-  def voting_open
-    if !style.party.styles.voting.include? style
-      errors.add(:style, "Votes for this style are closed, the styles have been refreshed, please vote again :)")
-    end
-  end
-  
-  def only_one_vote
+  def update_or_create!
     style.party.styles.voting.each do |style|
       style.votes.each do |vote|
-        if (vote.user_id == user_id)
-          errors.add(:style, "You already voted for this style")
+        if (vote.user_cookie == user_cookie)
+          vote.style_id = style_id
+          return vote.save!
         end
       end
     end
+    save!
   end
+  
+  def for_current_session?
+    return style.party.styles.voting.include? style
+  end
+
   
 end

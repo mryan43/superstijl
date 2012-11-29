@@ -1,11 +1,17 @@
+= subscribe_to "/votes/update"
+
 - if @party.started?
   = "The current Playing style is now #{@party.styles.playing.first.name}"
   = "We are voting on :"
   %br
   - @party.styles.voting.each do |style|
-    = "#{style.name} (#{style.votes.count} votes)"
-    = link_to "Vote for this style", new_vote_path(style)
+    = "#{style.name} ("
+    %span{:id => "votes-#{style.id}"}
+      = "#{style.votes.count}"
+    =" votes)"
+    = link_to "Vote for this style", { :controller => 'votes', :action => 'create', :remote => true, :style_id => style.id}, :method => :post
     %br
+  = link_to "Next Style", [:next_style,@party]
 - else
   = "Explications will go here"
   %br

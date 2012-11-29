@@ -2,7 +2,35 @@ class Party < ActiveRecord::Base
   attr_accessible :name
   has_many :styles; # that's the spirit !
   
+  def current_style
+    styles.playing.first
+  end
+  
+  def make_sure_we_have_enough_available_styles
+    #make sure there are always 3 types to vote for
+    if styles.available.count < 3
+      styles.discarded.each do |style|
+        style.votes.each do |vote|
+          vote.destroy
+        end
+        style.status = "available"
+        style.save!
+      end
+    end
+    if styles.available.count < 3
+       styles.played.each do |style|
+         style.votes.each do |vote|
+           vote.destroy
+         end
+         style.status = "available"
+         style.save!
+       end
+     end
+  end
+  
   def start
+    make_sure_we_have_enough_available_styles
+    
     s = styles.find_by_name "Intro"
     if s.nil?
       s = styles.sample
@@ -14,7 +42,6 @@ class Party < ActiveRecord::Base
       style.status = "voting"
       style.save!
     end
-    
   end
   
   def started?
@@ -22,8 +49,9 @@ class Party < ActiveRecord::Base
   end
   
   def next_style
-    current_style.status = "played"
-    current_style.save!
+    s = current_style
+    s.status = "played"
+    s.save!
     winner = nil
     # check what style won and switch the current style to this one
     styles.voting.each do |style|
@@ -36,24 +64,12 @@ class Party < ActiveRecord::Base
     current_style.save!
     # mark the styles that lost as discarded
     styles.voting.each do |style|
-      if style != winner
-        style.status = "discarded"
-        style.save!
-      end
+      style.status = "discarded"
+      style.save!
     end
-    #make sure there are always 3 types to vote for
-    if styles.available.count < 3
-      styles.discarded.each do |style|
-        style.status = "available"
-        style.save!
-      end
-      if styles.available.count < 3
-        styles.played.each do |style|
-          style.status = "available"
-          style.save!
-        end
-      end
-    end
+    
+    make_sure_we_have_enough_available_styles
+    
     styles.available.sample(3).each do |style|
       style.status = "voting"
       style.save!
@@ -100,8 +116,14 @@ class Party < ActiveRecord::Base
         end
       end  
     end
-    
+  end
   
+  def votes_json
+    res = {}
+    styles.voting.each do |style|
+      res[style.id] = style.votes.count
+    end
+    res.to_json
   end
   
 end
