@@ -1,0 +1,7 @@
+= link_to "/scan" do
+  = "Scan party folder (#{PARTIES_PATH}) for new parties / styles / songs"
+%br
+- @parties.each do |party|
+  = link_to party do
+    = party.name
+  %br

@@ -4,7 +4,7 @@ class CreateStyles < ActiveRecord::Migration
       t.string :name
       t.integer :party_id
       t.string :status #available, voting, playing, played, or discarded 
-      t.integet :id
+      t.integer :id
       t.timestamps
     end
   end

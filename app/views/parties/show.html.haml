@@ -1,0 +1,12 @@
+- if @party.started?
+  = "The current Playing style is now #{@party.styles.playing.first.name}"
+  = "We are voting on :"
+  %br
+  - @party.styles.voting.each do |style|
+    = "#{style.name} (#{style.votes.count} votes)"
+    = link_to "Vote for this style", new_vote_path(style)
+    %br
+- else
+  = "Explications will go here"
+  %br
+  = link_to "Let's get this party started !", [:start, @party]

@@ -11,14 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126214646) do
-
-  create_table "discarded_styles", :force => true do |t|
-    t.integer  "party_id"
-    t.integer  "style_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20121126214432) do
 
   create_table "parties", :force => true do |t|
     t.string   "name"
@@ -26,18 +19,9 @@ ActiveRecord::Schema.define(:version => 20121126214646) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "played_styles", :force => true do |t|
-    t.integer  "party_id"
-    t.integer  "style_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "songs", :force => true do |t|
     t.string   "file_name"
     t.string   "file_path"
-    t.string   "artist"
-    t.string   "title"
     t.integer  "duration"
     t.integer  "style_id"
     t.datetime "created_at", :null => false
@@ -46,21 +30,15 @@ ActiveRecord::Schema.define(:version => 20121126214646) do
 
   create_table "styles", :force => true do |t|
     t.string   "name"
+    t.integer  "party_id"
+    t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "votes", :force => true do |t|
-    t.integer  "party_id"
     t.integer  "style_id"
     t.string   "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "voting_styles", :force => true do |t|
-    t.integer  "party_id"
-    t.integer  "style_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

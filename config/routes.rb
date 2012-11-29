@@ -13,7 +13,17 @@ Superstijl::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :parties
+  root :to => "home#index"
+  get '/scan', to: 'home#scan'
+
+  resources :parties do 
+    member do 
+        get 'start'
+        get 'next_style'
+    end
+  end
+  
+  resources :votes
 
   # Sample resource route with options:
   #   resources :products do

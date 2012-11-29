@@ -4,8 +4,6 @@ class CreateSongs < ActiveRecord::Migration
       t.integer :id
       t.string :file_name
       t.string :file_path
-      t.string :artist
-      t.string :title
       t.integer :duration
       t.integer :style_id
 
