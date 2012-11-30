@@ -13,6 +13,6 @@
     %br
   = link_to "Next Style", [:next_style,@party]
 - else
-  = "Explications will go here"
+  = "Explanations will go here"
   %br
-  = link_to "Let's get this party started !", [:start, @party]
+  = link_to "Let's get this party started !", [:start, @party], { :class => "btn btn-primary" }

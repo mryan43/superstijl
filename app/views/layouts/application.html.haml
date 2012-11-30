@@ -1,12 +1,13 @@
 !!!
 %html
   %head
-    =# stylesheet_link_tag "theme_#{@theme}", :media => "all"
-    =# stylesheet_link_tag "bootstrap_and_overrides", :media => "all"
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Titillium+Web:600", :media => "all"
+    = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = favicon_link_tag "/favicon.ico"
     = csrf_meta_tags
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= "Superstyjl"
+    %title= "Superstijl"
   %body
-    =yield
+    .container
+      =yield

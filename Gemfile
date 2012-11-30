@@ -10,6 +10,9 @@ gem 'haml'
 gem 'private_pub'
 gem 'thin'
 
+gem "therubyracer" # seems to be needed for less
+gem "twitter-bootstrap-rails"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
