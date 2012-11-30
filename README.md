@@ -19,8 +19,8 @@ Organize the music like this :
 party name/style name/song.mp3
 
 Start the webapp like any rails webapp
-The application will scan the music folder when starting up
+Start the push server : rackup private_pub.ru -s thin -E production
 
-Create an Ad-hoc wifi on your laptop named "Superstijl"
+Create a wifi on your laptop named "Superstijl" redirecting all http traffic to the laptop
 
 Go to http://localhost:3000/ and get the party started !
