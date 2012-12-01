@@ -13,14 +13,13 @@
   .bars-container
     .bars
       - @party.styles.voting.each_with_index do |style, i|
-        %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i}", :id => "bar-#{style.id}"}
+        %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i} style-#{i}", :id => "bar-#{style.id}"}
+          %span{:id => "votes-#{style.id}", :class => "label"}
+            = "#{style.votes.count}"
 
   .votes
     - @party.styles.voting.each do |style|
       %div.perc-33
-        %span{:id => "votes-#{style.id}"}
-          = "#{style.votes.count}"
-        %br
         = link_to "Vote", { :controller => 'votes', :action => 'create', :remote => true, :style_id => style.id}, :method => :post, :class => "btn"
 
 - else
