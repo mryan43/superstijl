@@ -1,17 +1,28 @@
 = subscribe_to "/votes/update"
 
 - if @party.started?
-  = "The current Playing style is now #{@party.styles.playing.first.name}"
-  = "We are voting on :"
+  = link_to "Next Style", [:next_style,@party], :class => "next_style btn"
+
+  = "Currently: #{@party.styles.playing.first.name}"
   %br
-  - @party.styles.voting.each do |style|
-    = "#{style.name} ("
-    %span{:id => "votes-#{style.id}"}
-      = "#{style.votes.count}"
-    =" votes)"
-    = link_to "Vote for this style", { :controller => 'votes', :action => 'create', :remote => true, :style_id => style.id}, :method => :post
+  - @party.styles.voting.each_with_index do |style, i|
+    %span{:class => "style-#{i}"}
+      = "#{style.name}"
     %br
-  = link_to "Next Style", [:next_style,@party]
+    
+  .bars-container
+    .bars
+      - @party.styles.voting.each_with_index do |style, i|
+        %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i}"}
+
+  .votes
+    - @party.styles.voting.each do |style|
+      %div.perc-33
+        %span{:id => "votes-#{style.id}"}
+          = "#{style.votes.count}"
+        %br
+        = link_to "Vote", { :controller => 'votes', :action => 'create', :remote => true, :style_id => style.id}, :method => :post, :class => "btn"
+
 - else
   = "Explanations will go here"
   %br

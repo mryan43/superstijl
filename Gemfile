@@ -10,8 +10,11 @@ gem 'haml'
 gem 'private_pub'
 gem 'thin'
 
-gem "therubyracer" # seems to be needed for less
+gem "less-rails"
+gem "therubyracer"
 gem "twitter-bootstrap-rails"
+
+gem 'normalize-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

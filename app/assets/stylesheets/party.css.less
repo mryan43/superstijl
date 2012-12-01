@@ -1,0 +1,76 @@
+
+@import "bootstrap_variables.css.less";
+
+.next_style {
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+.perc-33 {
+    width:33%;
+    float:left;
+    text-align:center;
+}
+
+.style-0 {
+    color:#0099FF;
+}
+
+.style-1 {
+    color:#FFFF00;
+}
+
+.style-2 {
+    color:#FF0000;
+}
+
+.bars-container {
+    position:absolute;
+    left:0;
+    right:0;
+    top:100px;
+    bottom:50px;
+}
+
+
+.bars {
+    height:100%;
+
+    div {
+        margin:0 5%;
+        width:23%;
+
+        float:left;
+
+        min-height:4px;
+        vertical-align: bottom;
+
+        position:absolute;
+        bottom:0;
+
+        .transition(height 0.5s);
+    }
+
+    .bar-0 {
+        background:#0099FF;
+    }
+
+    .bar-1 {
+        background:#FFFF00;
+        height:100px;
+        left:33%;
+    }
+
+    .bar-2 {
+        background:#FF0000;
+        left:66%;
+    }
+}
+
+.votes {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+}
