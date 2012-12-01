@@ -19,7 +19,8 @@ Organize the music like this :
 party name/style name/song.mp3
 
 Start the webapp like any rails webapp
-Start the push server : rackup private_pub.ru -s thin -E production
+
+Start the push server : ```rackup private_pub.ru -s thin -E production```
 
 Create a wifi on your laptop named "Superstijl" redirecting all http traffic to the laptop
 
