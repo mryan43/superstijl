@@ -13,7 +13,7 @@
   .bars-container
     .bars
       - @party.styles.voting.each_with_index do |style, i|
-        %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i}"}
+        %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i}", :id => "bar-#{style.id}"}
 
   .votes
     - @party.styles.voting.each do |style|
