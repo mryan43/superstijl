@@ -2,20 +2,17 @@
 
 - if @party.started?
   = link_to "Next Style", [:next_style,@party], :class => "next_style btn"
+  .container.styles
+    = "#{@party.styles.playing.first.name}"
+    #countdown{:"data-remaining" => @party.countdown}
 
-  = "Currently: #{@party.styles.playing.first.name}"
-  %br
-  - @party.styles.voting.each_with_index do |style, i|
-    %span{:class => "style-#{i}"}
-      = "#{style.name}"
-    %br
-    
   .bars-container
     .bars
       - @party.styles.voting.each_with_index do |style, i|
         %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i} style-#{i}", :id => "bar-#{style.id}"}
           %span{:id => "votes-#{style.id}", :class => "label"}
             = "#{style.votes.count}"
+          %span{:class => "label inner-label"}="#{style.name}"
 
   .votes
     - @party.styles.voting.each do |style|

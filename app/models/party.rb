@@ -1,9 +1,13 @@
 class Party < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :votes_start
   has_many :styles; # that's the spirit !
   
   def current_style
     styles.playing.first
+  end
+  
+  def countdown
+    (900 - (Time.now - votes_start)).floor
   end
   
   def make_sure_we_have_enough_available_styles
@@ -42,6 +46,9 @@ class Party < ActiveRecord::Base
       style.status = "voting"
       style.save!
     end
+    
+    votes_start = Time.now
+    save!
   end
   
   def started?
@@ -74,7 +81,8 @@ class Party < ActiveRecord::Base
       style.status = "voting"
       style.save!
     end
-    
+    self.votes_start = Time.now
+    save!
   end
   
   def self.scan

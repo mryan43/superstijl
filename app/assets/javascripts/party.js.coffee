@@ -23,9 +23,28 @@ get_percent = (biggest, current) ->
   return (current * 100) / biggest
 
 define_heights = () ->
-  biggest = max_vote()
-  $(".bars div").each ->
-    $(this).height "#{get_percent(biggest, $(this).data("votes"))}%"
+  if max_vote() == 0
+    $(".bars div").each ->
+      $(this).height "1px"
+  else
+    biggest = max_vote()
+    $(".bars div").each ->
+      $(this).height "#{get_percent(biggest, $(this).data("votes"))}%"
+
+format_countdown = ->
+  seconds_remaining = $("#countdown").attr("data-remaining")
+  mins = Math.floor(seconds_remaining / 60)
+  secs = seconds_remaining - mins*60
+  secs = "0"+secs unless secs > 9
+  $("#countdown").html("#{mins}:#{secs}");
+
+countdown = ->
+  format_countdown();
+  setInterval(-> 
+    $("#countdown").attr("data-remaining", $("#countdown").attr("data-remaining") - 1)
+    format_countdown()
+  ,1000);
 
 $ ->
   define_heights()
+  countdown()

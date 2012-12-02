@@ -1,10 +1,21 @@
 
 @import "bootstrap_variables.css.less";
 
+#countdown{
+   font-family:digit;
+   font-size: 100px;
+   color:red;
+   line-height:100px;
+   margin:auto;
+   text-align: center;
+   margin-left:-40px;
+}
+
 .next_style {
     position:absolute;
     top:10px;
     right:10px;
+    z-index:1000;
 }
 
 .perc-33 {
@@ -29,20 +40,19 @@
     position:absolute;
     left:0;
     right:0;
-    top:100px;
+    top:150px;
     bottom:40px;
 }
 
 .bars {
     height:100%;
-
     div {
         margin:0 5%;
         width:23%;
 
         float:left;
 
-        min-height:4px;
+        min-height:48px;
         vertical-align: bottom;
 
         position:absolute;
@@ -52,14 +62,21 @@
 
         .label {
             position:absolute;
-            top:-20px;
+            top:-24px;
 
-            font-size:20px;
+            font-size:18px;
 
             display:block;
             text-align:center;
             width:100%;
+            line-height:24px;
         }
+        
+        .inner-label {
+            color:black;
+            top:0px;
+        }
+        
     }
 
     .bar-0 {
