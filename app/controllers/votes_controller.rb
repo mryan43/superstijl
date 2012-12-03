@@ -17,7 +17,6 @@ class VotesController < ApplicationController
         format.json { render :json => "ok" }
       end
     end
-    p @style.party.votes_json
     PrivatePub.publish_to "/votes/update", :votes => @style.party.votes_json
   end
 end

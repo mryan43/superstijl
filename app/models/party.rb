@@ -55,34 +55,41 @@ class Party < ActiveRecord::Base
     styles.playing.count > 0 && styles.voting.count == 3
   end
   
-  def next_style
-    s = current_style
-    s.status = "played"
-    s.save!
-    winner = nil
-    # check what style won and switch the current style to this one
-    styles.voting.each do |style|
-      if winner.nil? || style.votes.count > winner.votes.count
-        winner = style
+  def next_style(force)
+    # only switch after the countdown is elapsed
+    if !force && countdown > 0
+      return false
+    end
+    transaction do
+      s = current_style
+      s.status = "played"
+      s.save
+      winner = nil
+      # check what style won and switch the current style to this one
+      styles.voting.each do |style|
+        if winner.nil? || style.votes.count > winner.votes.count
+          winner = style
+        end
       end
-    end
-    current_style = winner
-    current_style.status = "playing"
-    current_style.save!
-    # mark the styles that lost as discarded
-    styles.voting.each do |style|
-      style.status = "discarded"
-      style.save!
-    end
+      current_style = winner
+      current_style.status = "playing"
+      current_style.save
+      # mark the styles that lost as discarded
+      styles.voting.each do |style|
+        style.status = "discarded"
+        style.save
+      end
     
-    make_sure_we_have_enough_available_styles
+      make_sure_we_have_enough_available_styles
     
-    styles.available.sample(3).each do |style|
-      style.status = "voting"
-      style.save!
+      styles.available.sample(3).each do |style|
+        style.status = "voting"
+        style.save
+      end
+      self.votes_start = Time.now
+      save
     end
-    self.votes_start = Time.now
-    save!
+    return true
   end
   
   def self.scan

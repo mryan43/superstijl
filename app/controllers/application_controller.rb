@@ -12,7 +12,19 @@ class ApplicationController < ActionController::Base
     if cookies[:rand].nil?
       cookies[:rand] = SecureRandom.hex(8)
     end
+    
+    if "true" == params[:main]
+      cookies[:main] = true
+    end
+    
+    if "false" == params[:main]
+      cookies[:main] = false
+    end
   
+  end
+  
+  def is_main?
+    cookies[:main] == true
   end
   
 end

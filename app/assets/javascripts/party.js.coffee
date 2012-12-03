@@ -10,6 +10,9 @@ PrivatePub.subscribe "/votes/update", (data,channel) ->
   update_votes data
   define_heights()
 
+PrivatePub.subscribe "/party/next_style", (data,channel) -> 
+  next_style(data)
+
 max_vote = () ->
   votes = 0
   $(".bars div").each ->
@@ -31,16 +34,32 @@ define_heights = () ->
     $(".bars div").each ->
       $(this).height "#{get_percent(biggest, $(this).data("votes"))}%"
 
+interval = null
+
 format_countdown = ->
   seconds_remaining = $("#countdown").attr("data-remaining")
   mins = Math.floor(seconds_remaining / 60)
   secs = seconds_remaining - mins*60
   secs = "0"+secs unless secs > 9
-  $("#countdown").html("#{mins}:#{secs}");
+  if (seconds_remaining < 0)
+    $("#countdown").html("0:00");
+    $.ajax "/parties/#{$('#countdown').attr('party-id')}/next_style",
+        type: 'GET'
+        dataType: 'json'
+        success: (data, textStatus, jqXHR) ->
+    clearInterval(interval)
+  else
+    $("#countdown").html("#{mins}:#{secs}");
+
+next_style = (winner) ->
+  clearInterval(interval)
+  
+  
+  window.location.reload()
 
 countdown = ->
   format_countdown();
-  setInterval(-> 
+  interval = setInterval(-> 
     $("#countdown").attr("data-remaining", $("#countdown").attr("data-remaining") - 1)
     format_countdown()
   ,1000);

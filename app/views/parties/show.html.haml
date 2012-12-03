@@ -1,10 +1,11 @@
 = subscribe_to "/votes/update"
-
+= subscribe_to "/party/next_style"
 - if @party.started?
-  = link_to "Next Style", [:next_style,@party], :class => "next_style btn"
+  - if @main
+    = link_to "Next Style", [:next_style,@party], :class => "next_style btn", :remote => true
   .container.styles
     = "#{@party.styles.playing.first.name}"
-    #countdown{:"data-remaining" => @party.countdown}
+    #countdown{:"data-remaining" => @party.countdown, :"party-id" => @party.id, :main => @main}
 
   .bars-container
     .bars
