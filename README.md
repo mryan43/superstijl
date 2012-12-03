@@ -10,18 +10,32 @@ They do this using their smartphones by connecting to a wifi network.
 
 This Ruby on Rails webapp allows you to setup such a party !
 
+Features
+--------
+
+- Music folder scanning
+- Push updates of votes for maximum interactivity
+- Big ass countdown timer
+- Music player in the browser
+- Incredible animations when switching music style (TODO : implement)
+
 Installation
 ------------
 
-Configure the root path of your music in the config/config.yml file
+Configure the path to your music in the config/config.yml file
 
-Organize the music like this :
-party name/style name/song.mp3
+Configure the external address of your server in config/private_pub.yml
 
-Start the webapp like any rails webapp
+Organize the music in configured folder like this :
+"party name"/"style name"/"song.mp3"
+
+Start the webapp like any rails webapp : ```rails s```
 
 Start the push server : ```rackup private_pub.ru -s thin -E production```
 
-Create a wifi on your laptop named "Superstijl" redirecting all http traffic to the laptop
+Create a wifi named "Superstijl" redirecting all http traffic to your server (for example, use DD-WRT feature : http://www.dd-wrt.com/wiki/index.php/HTTPRedirect)
 
 Go to http://localhost:3000/ and get the party started !
+
+Let your wild party people connect to the wifi and start voting like mad !
+
