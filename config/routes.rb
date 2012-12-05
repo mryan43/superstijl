@@ -20,10 +20,14 @@ Superstijl::Application.routes.draw do
     member do 
         get 'start'
         get 'next_style'
+        get 'next_song'
+        get 'player'
     end
   end
   
   resources :votes
+  
+  get '/songs/:id.mp3', to: 'songs#show'
 
   # Sample resource route with options:
   #   resources :products do

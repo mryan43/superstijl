@@ -15,6 +15,10 @@ class PartiesController < ApplicationController
     @party = Party.find(params[:id])
   end  
   
+  def player
+    @party = Party.find(params[:id])
+  end
+  
   def next_style
     
     @party = Party.find(params[:id])
@@ -27,4 +31,17 @@ class PartiesController < ApplicationController
       PrivatePub.publish_to "/party/next_style", :winner => @party.current_style.name
     end
   end
+  
+  def next_song
+    @party = Party.find(params[:id])
+    nexted = @party.next_song(false)
+    @party.save
+    respond_to do |format|
+      format.json { render :json => "ok" }
+    end
+    if nexted
+      PrivatePub.publish_to "/party/next_song", :song => @party.current_song.id
+    end
+  end
+  
 end

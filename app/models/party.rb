@@ -1,13 +1,14 @@
 class Party < ActiveRecord::Base
-  attr_accessible :name, :votes_start
+  attr_accessible :name, :votes_start, :current_song_id, :current_song_start
   has_many :styles; # that's the spirit !
+  belongs_to :current_song, :class_name => "Song", :foreign_key => "current_song_id"
   
   def current_style
     styles.playing.first
   end
   
   def countdown
-    (900 - (Time.now - votes_start)).floor
+    (STYLE_DURATION - (Time.now - votes_start)).floor
   end
   
   def make_sure_we_have_enough_available_styles
@@ -27,6 +28,10 @@ class Party < ActiveRecord::Base
            vote.destroy
          end
          style.status = "available"
+         style.songs.each do |song|
+           song.played = false
+           song.save!
+         end
          style.save!
        end
      end
@@ -47,7 +52,8 @@ class Party < ActiveRecord::Base
       style.save!
     end
     
-    votes_start = Time.now
+    self.votes_start = Time.now
+    self.next_song(true)
     save!
   end
   
@@ -86,6 +92,7 @@ class Party < ActiveRecord::Base
         style.status = "voting"
         style.save
       end
+      self.next_song(true)
       self.votes_start = Time.now
       save
     end
@@ -121,6 +128,7 @@ class Party < ActiveRecord::Base
                 song = style.songs.where(:file_name => file_name)
                 if song.empty?
                   song = song.new
+                  song.played = false
                   song.file_name = file_name
                   song.file_path = file_path
                   song.save!
@@ -131,6 +139,26 @@ class Party < ActiveRecord::Base
         end
       end  
     end
+  end
+  
+  def next_song(force)
+    if !force && Time.now - self.current_song_start < 10
+      #too soon !
+      return false
+    end
+    
+    if !self.current_song.nil?
+      self.current_song.played = true
+      self.current_song.save!
+    end
+    self.current_song = self.current_style.songs.available.sample
+    self.current_song_start = Time.now
+    self.save!
+    return true
+  end
+  
+  def song_offset
+    (Time.now - self.current_song_start).floor
   end
   
   def votes_json

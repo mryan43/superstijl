@@ -1,0 +1,8 @@
+= subscribe_to "/party/next_song"
+= subscribe_to "/party/next_style"
+- if @party.current_song.nil?
+  = "The party doesnt have a current song ! do something !"
+- else
+  %h1="Currently playing : #{@party.current_song.file_name}"
+  #song{:"party-id" => @party.id ,:"data-song-id" => @party.current_song.id, :"data-offset" => @party.song_offset}
+  #player="Loading the player..."

@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201173312) do
+ActiveRecord::Schema.define(:version => 20121204203658) do
 
   create_table "parties", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.datetime "votes_start"
+    t.integer  "current_song_id"
+    t.datetime "current_song_start"
   end
 
   create_table "songs", :force => true do |t|
@@ -27,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20121201173312) do
     t.integer  "style_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "played"
   end
 
   create_table "styles", :force => true do |t|
