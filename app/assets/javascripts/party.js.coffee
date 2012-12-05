@@ -42,20 +42,22 @@ format_countdown = ->
   secs = seconds_remaining - mins*60
   secs = "0"+secs unless secs > 9
   if (seconds_remaining < 0)
-    $("#countdown").html("0:00");
+    $("#countdown").html("0:00")
     $.ajax "/parties/#{$('#countdown').attr('party-id')}/next_style",
         type: 'GET'
         dataType: 'json'
         success: (data, textStatus, jqXHR) ->
     clearInterval(interval)
   else
-    $("#countdown").html("#{mins}:#{secs}");
+    $("#countdown").html("#{mins}:#{secs}")
 
 next_style = (winner) ->
+  $("#bar-" + winner.winner).addClass "flash"
   clearInterval(interval)
   
-  
-  window.location.reload()
+  # reload after 1 second, to allow the animation to run
+  callback = -> window.location.reload()
+  setTimeout callback, 1000
 
 countdown = ->
   format_countdown();

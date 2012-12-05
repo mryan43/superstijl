@@ -13,7 +13,7 @@
         %div.bar{"data-votes" => "#{style.votes.count}", :class => "bar-#{i} style-#{i}", :id => "bar-#{style.id}"}
           %span{:id => "votes-#{style.id}", :class => "label"}
             = "#{style.votes.count}"
-          %span{:class => "label inner-label"}="#{style.name}"
+          %span{:class => "inner-label"}="#{style.name}"
 
   .votes
     - @party.styles.voting.each do |style|

@@ -28,7 +28,7 @@ class PartiesController < ApplicationController
       format.json { render :json => "ok" }
     end
     if nexted
-      PrivatePub.publish_to "/party/next_style", :winner => @party.current_style.name
+      PrivatePub.publish_to "/party/next_style", :winner => @party.current_style.id
     end
   end
   
