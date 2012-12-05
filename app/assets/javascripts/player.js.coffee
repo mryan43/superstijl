@@ -7,7 +7,7 @@ $ ->
     jwplayer("player").setup
       autoplay:true
       flashplayer: "/player.swf" 
-      file: "/songs/"+$("#song").attr("data-song-id")+".mp3" 
+      file: "/songs/"+$("#song").attr("data-song-id")
       provider: "sound"
       dock:false
       plugins: 

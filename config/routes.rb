@@ -27,7 +27,7 @@ Superstijl::Application.routes.draw do
   
   resources :votes
   
-  get '/songs/:id.mp3', to: 'songs#show'
+  get '/songs/:id.:ext', to: 'songs#show'
 
   # Sample resource route with options:
   #   resources :products do

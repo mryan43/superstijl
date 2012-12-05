@@ -4,5 +4,5 @@
   = "The party doesnt have a current song ! do something !"
 - else
   %h1="Currently playing : #{@party.current_song.file_name}"
-  #song{:"party-id" => @party.id ,:"data-song-id" => @party.current_song.id, :"data-offset" => @party.song_offset}
+  #song{:"party-id" => @party.id ,:"data-song-id" => "#{@party.current_song.id}#{File.extname(@party.current_song.file_path)}", :"data-offset" => @party.song_offset}
   #player="Loading the player..."
