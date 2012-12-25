@@ -7,7 +7,7 @@ class Vote < ActiveRecord::Base
   def update_or_create!
     style.party.styles.voting.each do |style|
       style.votes.each do |vote|
-        if (vote.user_cookie == user_cookie)
+        if (vote.user_cookie == user_cookie || vote.user_ip == user_ip)
           vote.style_id = style_id
           return vote.save!
         end

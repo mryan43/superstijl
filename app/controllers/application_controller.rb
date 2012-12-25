@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
     
     if "true" == params[:main]
-      cookies[:main] = true
+      cookies[:main] = "true"
     end
     
     if "false" == params[:main]
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   
   def is_main?
-    cookies[:main] == true
+    cookies[:main] == "true"
   end
   
 end

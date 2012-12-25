@@ -151,7 +151,7 @@ class Party < ActiveRecord::Base
       self.current_song.played = true
       self.current_song.save!
     end
-    self.current_song = self.current_style.songs.available.sample
+    self.current_song = self.current_style.songs.available.order("file_name").first
     self.current_song_start = Time.now
     self.save!
     return true
