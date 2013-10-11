@@ -1,7 +1,11 @@
-= link_to "/scan", :class => "btn btn-primary" do
-  = "Scan party folder for new parties / styles / songs"
-%br
-= "The folder is :#{PARTIES_PATH}"
+- if @main
+  = link_to "/scan", :class => "btn btn-primary" do
+    = "Scan party folder for new parties / styles / songs"
+  %br
+  = "The folder is :#{PARTIES_PATH}"
+  %br
+  %br
+Choose a party : 
 %br
 - @parties.each do |party|
   = link_to party do

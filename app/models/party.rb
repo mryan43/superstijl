@@ -37,24 +37,15 @@ class Party < ActiveRecord::Base
      end
   end
   
-  def start
+  def init
+  
     make_sure_we_have_enough_available_styles
-    
-    s = styles.find_by_name "Intro"
-    if s.nil?
-      s = styles.sample
-    end
-    s.status = "playing"
-    s.save!
     
     styles.available.sample(3).each do |style|
       style.status = "voting"
       style.save!
     end
-    
-    self.votes_start = Time.now
-    self.next_song(true)
-    save!
+  
   end
   
   def started?
@@ -68,8 +59,10 @@ class Party < ActiveRecord::Base
     end
     transaction do
       s = current_style
-      s.status = "played"
-      s.save
+      if !s.nil?
+        s.status = "played"
+        s.save
+      end
       winner = nil
       # check what style won and switch the current style to this one
       styles.voting.each do |style|
@@ -137,6 +130,7 @@ class Party < ActiveRecord::Base
             end
           end
         end
+        party.init unless party.nil?
       end  
     end
   end

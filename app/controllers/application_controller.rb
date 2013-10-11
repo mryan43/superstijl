@@ -20,11 +20,25 @@ class ApplicationController < ActionController::Base
     if "false" == params[:main]
       cookies[:main] = false
     end
-  
+    
+    if "true" == params[:cheat]
+      cookies[:cheat] = "true"
+    end
+    
+    if "false" == params[:cheat]
+      cookies[:cheat] = false
+    end
+    
+    @cheater = is_cheater?
+    @main = is_main?
   end
   
   def is_main?
     cookies[:main] == "true"
+  end
+  
+  def is_cheater?
+    cookies[:cheat] == "true"
   end
   
 end

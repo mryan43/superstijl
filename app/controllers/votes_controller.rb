@@ -12,7 +12,7 @@ class VotesController < ApplicationController
       redirect_to @style.party
       return
     else
-      vote.update_or_create!
+      vote.update_or_create!(@cheater)
       respond_to do |format|
         format.json { render :json => "ok" }
       end
